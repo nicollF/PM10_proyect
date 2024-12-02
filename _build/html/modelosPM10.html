@@ -1,0 +1,1834 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Implementacion de modelos de regresion &#8212; Proyecto final Machine Learning &amp; Visualización de Datos</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modelosPM10';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Análisis exploratorio de los datos" href="EDA.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/uninortelogo.jpeg" class="logo__image only-light" alt="Proyecto final Machine Learning & Visualización de Datos - Home"/>
+    <script>document.write(`<img src="_static/uninortelogo.jpeg" class="logo__image only-dark" alt="Proyecto final Machine Learning & Visualización de Datos - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Contextualización
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="EDA.html"><strong>Análisis exploratorio de los datos</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Implementacion de modelos de regresion</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FmodelosPM10.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/modelosPM10.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Implementacion de modelos de regresion</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia"><em><strong>Metodología</strong></em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest"><strong>Random Forest</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas-y-errores"><strong>Métricas y errores</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grafica-para-los-supuestos"><strong>Gráfica para los supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predicciones-en-el-test"><strong>Predicciones en el test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xgboost"><strong>XGBoost</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errores-y-metricas"><strong>Errores y métricas</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Gráfica para los supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediccion-en-el-conjunto-de-test"><strong>Predicción en el conjunto de test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svr"><strong>SVR</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Errores y métricas</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-de-los-supuestos"><strong>Gráficos de los supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Predicciones en el test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hibrido-xgboost-svr"><strong>Hibrido XGBoost - SVR</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Métricas y errores</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficas-para-los-supuestos"><strong>Graficas para los supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predicciones-en-el-conjunto-de-test"><strong>Predicciones en el conjunto de test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones"><strong>Conclusiones</strong></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="implementacion-de-modelos-de-regresion">
+<h1><strong>Implementacion de modelos de regresion</strong><a class="headerlink" href="#implementacion-de-modelos-de-regresion" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span> 
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+
+
+<span class="kn">from</span> <span class="nn">statsmodels.stats.diagnostic</span> <span class="kn">import</span> <span class="n">acorr_ljungbox</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">jarque_bera</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">jarque_bera</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="metodologia">
+<h2><em><strong>Metodología</strong></em><a class="headerlink" href="#metodologia" title="Link to this heading">#</a></h2>
+<p>En este seccioón se implementaran 4 modelos, 3 de ellos modelos tradicionales de Machine Learning y el cuarto es un modelo híbrido entre XGboost y SVR, durante toda la implementación se iran comentando los resultados, los cuales nos llevaran a llegar a distintas conclusione.</p>
+<p>Para cada uno de los modelos tradicionales se realizó su respectiva hiperparametrización, además de variar el tamaño de datos que seran tomados para predecir la variable respuesta, a estos tamaños se les llamaran ventanas, siendo esta de 7,14,21 y 28 días, se escogerá la ventana que ofrece el mejor score en el conjunto de test. Luego de hallar los 3 mejores modelos, estos serán tomados para ser comparados con los resultados del modelo original propuesto</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_pm10</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;C:/Users/fonta/OneDrive/Documentos/CDD/6. Sexto semestre/Machine learning/Proyecto final/seriepm10.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_pm10</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01 00:59:59+00:00</td>
+      <td>61.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-01-01 01:59:59+00:00</td>
+      <td>101.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-01-01 02:59:59+00:00</td>
+      <td>75.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-01-01 03:59:59+00:00</td>
+      <td>56.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-01-01 04:59:59+00:00</td>
+      <td>107.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">makeXy</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">nb_timesteps</span><span class="p">):</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nb_timesteps</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="c1">#if i-nb_timesteps &lt;= 4:</span>
+            <span class="c1">#print(i-nb_timesteps, i-1, i)</span>
+        <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">nb_timesteps</span><span class="p">:</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span> <span class="c1">#Regressors</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="c1">#Target</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="random-forest">
+<h2><strong>Random Forest</strong><a class="headerlink" href="#random-forest" title="Link to this heading">#</a></h2>
+<p>Veamos la implementación y el rendimiento que tiene el modelo Random Forest para los datos de la serie de tiempo de la estación Ermita en la ciudad de Cali.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultados_rf</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">14</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">21</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">24</span><span class="p">]:</span>
+    <span class="n">nb_timesteps</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">makeXy</span><span class="p">(</span><span class="n">data_pm10</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">],</span> <span class="n">nb_timesteps</span><span class="p">)</span>
+
+    <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.6</span><span class="p">)</span>  
+    <span class="n">val_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)</span>    
+
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">]</span>
+    <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:]</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span> 
+        <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>   
+    <span class="p">}</span>
+
+    <span class="n">best_score</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">best_params</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">best_model_rf</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">for</span> <span class="n">n_estimators</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">max_depth</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;max_depth&#39;</span><span class="p">]:</span>
+
+            <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+                <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> 
+                <span class="p">(</span><span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="n">RandomForestRegressor</span><span class="p">(</span>
+                    <span class="n">n_estimators</span><span class="o">=</span><span class="n">n_estimators</span><span class="p">,</span>
+                    <span class="n">max_depth</span><span class="o">=</span><span class="n">max_depth</span><span class="p">,</span>
+                    <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span> 
+                <span class="p">))</span>
+            <span class="p">])</span>
+
+            <span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+            <span class="n">y_val_pred</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_val_pred</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n_estimators=</span><span class="si">{</span><span class="n">n_estimators</span><span class="si">}</span><span class="s2">, max_depth=</span><span class="si">{</span><span class="n">max_depth</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;R2 en validación: </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
+                <span class="n">best_score</span> <span class="o">=</span> <span class="n">score</span>
+                <span class="n">best_params</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="n">n_estimators</span><span class="p">,</span>
+                    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="n">max_depth</span><span class="p">,</span>
+                <span class="p">}</span>
+                <span class="n">best_model_rf</span> <span class="o">=</span> <span class="n">pipeline</span>
+
+    <span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">best_model_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="n">resultados_rf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;parametros&#39;</span><span class="p">:</span> <span class="n">best_params</span><span class="p">,</span>
+        <span class="s1">&#39;score val&#39;</span><span class="p">:</span> <span class="n">best_score</span><span class="p">,</span>
+        <span class="s1">&#39;score test&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred</span><span class="p">),</span>
+        <span class="s1">&#39;residuos&#39;</span><span class="p">:</span> <span class="n">y_test</span> <span class="o">-</span> <span class="n">y_test_pred</span><span class="p">,</span>
+        <span class="s1">&#39;predicc&#39;</span><span class="p">:</span> <span class="n">y_test_pred</span><span class="p">,</span>
+        <span class="s1">&#39;modelo&#39;</span><span class="p">:</span> <span class="n">best_model_rf</span><span class="p">,</span>
+        <span class="s1">&#39;entrenamiento y&#39;</span><span class="p">:</span> <span class="n">y_train</span><span class="p">,</span>
+        <span class="s1">&#39;observado&#39;</span><span class="p">:</span> <span class="n">y_test</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;resultados_rf.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">Random</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="metricas-y-errores">
+<h3><strong>Métricas y errores</strong><a class="headerlink" href="#metricas-y-errores" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tabla1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">clave</span><span class="p">,</span> <span class="n">valor</span> <span class="ow">in</span> <span class="n">Random</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">real</span> <span class="o">=</span> <span class="n">valor</span><span class="p">[</span><span class="s1">&#39;observado&#39;</span><span class="p">]</span>
+    <span class="n">predic</span> <span class="o">=</span> <span class="n">valor</span><span class="p">[</span><span class="s1">&#39;predicc&#39;</span><span class="p">]</span>
+    <span class="n">residuos</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;residuos&#39;</span><span class="p">]</span>
+    <span class="n">r2</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;score test&#39;</span><span class="p">]</span>
+    <span class="n">parametro</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;parametros&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># Calcular las métricas</span>
+    <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">predic</span><span class="p">)</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">predic</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+
+    <span class="n">ljung_box_results</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">residuos</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">jb_stat</span><span class="p">,</span> <span class="n">jb_pvalue</span> <span class="o">=</span> <span class="n">jarque_bera</span><span class="p">(</span><span class="n">residuos</span><span class="p">)</span>
+    
+    <span class="n">tabla_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;Ventana&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">clave</span><span class="p">],</span>
+        <span class="s1">&#39;parametro&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">parametro</span><span class="p">],</span>
+        <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mae</span><span class="p">],</span>
+        <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mse</span><span class="p">],</span>
+        <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">rmse</span><span class="p">],</span>
+        <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">r2</span><span class="p">],</span>
+        <span class="s1">&#39;Ljung-Box p-value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ljung_box_results</span><span class="p">[</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="s1">&#39;Jarque-Bera p-value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">jb_pvalue</span><span class="p">]</span>
+    <span class="p">})</span>
+    
+    <span class="n">tabla1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tabla1</span><span class="p">,</span> <span class="n">tabla_temp</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el DataFrame final</span>
+<span class="n">tabla1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ventana</th>
+      <th>parametro</th>
+      <th>MAE</th>
+      <th>MSE</th>
+      <th>RMSE</th>
+      <th>R2</th>
+      <th>Ljung-Box p-value</th>
+      <th>Jarque-Bera p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>168</td>
+      <td>{'n_estimators': 150, 'max_depth': 20}</td>
+      <td>9.323569</td>
+      <td>178.558666</td>
+      <td>13.362585</td>
+      <td>0.556085</td>
+      <td>0.004796</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>336</td>
+      <td>{'n_estimators': 150, 'max_depth': 20}</td>
+      <td>9.340586</td>
+      <td>178.054768</td>
+      <td>13.343716</td>
+      <td>0.557930</td>
+      <td>0.000243</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>504</td>
+      <td>{'n_estimators': 150, 'max_depth': 20}</td>
+      <td>9.366953</td>
+      <td>179.127912</td>
+      <td>13.383868</td>
+      <td>0.556033</td>
+      <td>0.001116</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>672</td>
+      <td>{'n_estimators': 150, 'max_depth': 20}</td>
+      <td>9.416496</td>
+      <td>180.187918</td>
+      <td>13.423409</td>
+      <td>0.554278</td>
+      <td>0.000089</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Los resultados obtenidos indican que el modelo Random Forest presenta un rendimiento aceptable, aunque se observan algunos puntos a mejorar. El aumento leve en los errores a medida que aumenta el tamaño de la ventana sugiere que el modelo podría estar perdiendo un poco de precisión en predicciones a largo plazo. Además, la presencia de autocorrelación y no normalidad en los residuos señala la necesidad de explorar modelos más complejos o realizar ajustes en los datos para obtener resultados más robustos.</p>
+<p>Veamos de manera gráfica como es el comportamiento de los residuos.</p>
+<section id="grafica-para-los-supuestos">
+<h4><strong>Gráfica para los supuestos</strong><a class="headerlink" href="#grafica-para-los-supuestos" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">datos</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Random</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">residuo</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;residuos&quot;</span><span class="p">]</span>
+    <span class="n">ax_hist</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  
+    <span class="n">ax_acf</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>   
+
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">residuo</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Histograma de los Residuos - ventana </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">plot_acf</span><span class="p">(</span><span class="n">residuo</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_acf</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">ax_acf</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Autocorrelación de los Residuos - ventana </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/140f713fa3f7fee881d42c67493be0cbd5af8e0f598b7a4123b950bf4b564217.png" src="_images/140f713fa3f7fee881d42c67493be0cbd5af8e0f598b7a4123b950bf4b564217.png" />
+</div>
+</div>
+<p>En las gráficas anteriores podemos ver los histogramas y autocorrelaciones para los residuos del modelo, aunque parecen seguir una distribución normal, sabemos que la prueba analítica arrojó que no se cumple el supuesto de normalidad y en las autocorrelaciones se puede ver un ligero patrón lo que evidencia la correlacion que existe entre ellos.</p>
+<p>Veamos como es el rendimiento del modelo al hacer las predicciones en el conjunto de test.</p>
+</section>
+</section>
+<section id="predicciones-en-el-test">
+<h3><strong>Predicciones en el test</strong><a class="headerlink" href="#predicciones-en-el-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">datos</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Random</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;observado&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">]</span>
+    <span class="n">predic</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;predicc&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">]</span>
+    <span class="n">yTrain</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;entrenamiento y&quot;</span><span class="p">]</span>
+    <span class="n">scsoreTest</span><span class="o">=</span><span class="n">datos</span><span class="p">[</span><span class="s1">&#39;score test&#39;</span><span class="p">]</span>
+    <span class="n">ytrain</span><span class="o">=</span><span class="n">yTrain</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Observado&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#6a994e&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">predic</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">predic</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Predicho&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#e63946&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">ytrain</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Entrenamiento&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#386641&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ventana </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span><span class="si">}</span><span class="s2">, score en el test= </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">scsoreTest</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6f869e02851a30203b61449c9a59c03908fe3bddec1fb45d085cf9dc9a681fa6.png" src="_images/6f869e02851a30203b61449c9a59c03908fe3bddec1fb45d085cf9dc9a681fa6.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="xgboost">
+<h2><strong>XGBoost</strong><a class="headerlink" href="#xgboost" title="Link to this heading">#</a></h2>
+<p>En segundo lugar se evaluará el rendimiento que tendrá el modelo XGBoost Regresor en nuestro conjunto de datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultados_xgboost</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">7</span><span class="o">*</span><span class="mi">24</span><span class="p">,</span><span class="mi">14</span><span class="o">*</span><span class="mi">24</span><span class="p">,</span><span class="mi">21</span><span class="o">*</span><span class="mi">24</span><span class="p">,</span><span class="mi">28</span><span class="o">*</span><span class="mi">24</span><span class="p">]:</span>
+    <span class="n">nb_timesteps</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">makeXy</span><span class="p">(</span><span class="n">data_pm10</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">],</span> <span class="n">nb_timesteps</span><span class="p">)</span>
+
+    <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.6</span><span class="p">)</span> 
+    <span class="n">val_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)</span>    
+
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">]</span>
+    <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:]</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span>        
+        <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>    
+        <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>              
+    <span class="p">}</span>
+
+    <span class="n">best_score</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">best_params</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">best_model_xgb</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ventana</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">n_estimators</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">learning_rate</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">max_depth</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;max_depth&#39;</span><span class="p">]:</span>
+                
+                <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+                    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
+                    <span class="p">(</span><span class="s1">&#39;xgboost&#39;</span><span class="p">,</span> <span class="n">XGBRegressor</span><span class="p">(</span>
+                        <span class="n">n_estimators</span><span class="o">=</span><span class="n">n_estimators</span><span class="p">,</span>
+                        <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+                        <span class="n">max_depth</span><span class="o">=</span><span class="n">max_depth</span><span class="p">,</span>
+                        <span class="n">tree_method</span><span class="o">=</span><span class="s1">&#39;gpu_hist&#39;</span><span class="p">,</span>
+                        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+                    <span class="p">))</span>
+                <span class="p">])</span>
+
+                <span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+                <span class="n">y_val_pred</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_val_pred</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
+                    <span class="n">best_score</span> <span class="o">=</span> <span class="n">score</span>
+                    <span class="n">best_params</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="n">n_estimators</span><span class="p">,</span>
+                        <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="n">learning_rate</span><span class="p">,</span>
+                        <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="n">max_depth</span>
+                    <span class="p">}</span>
+                    <span class="n">best_model_xgb</span> <span class="o">=</span> <span class="n">pipeline</span>
+
+
+    <span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">best_model_xgb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="c1"># Almacenar los resultados</span>
+    <span class="n">resultados_xgboost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;parametros&#39;</span><span class="p">:</span> <span class="n">best_params</span><span class="p">,</span>
+        <span class="s1">&#39;score val&#39;</span><span class="p">:</span> <span class="n">best_score</span><span class="p">,</span>
+        <span class="s1">&#39;score test&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred</span><span class="p">),</span>
+        <span class="s1">&#39;residuos&#39;</span><span class="p">:</span> <span class="n">y_test</span> <span class="o">-</span> <span class="n">y_test_pred</span><span class="p">,</span>
+        <span class="s1">&#39;predicc&#39;</span><span class="p">:</span> <span class="n">y_test_pred</span><span class="p">,</span>
+        <span class="s1">&#39;modelo&#39;</span><span class="p">:</span> <span class="n">best_model_xgb</span><span class="p">,</span>
+        <span class="s1">&#39;entrenamiento y&#39;</span><span class="p">:</span> <span class="n">y_train</span><span class="p">,</span>
+        <span class="s1">&#39;observado&#39;</span><span class="p">:</span> <span class="n">y_test</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ventana7
+ventana14
+ventana21
+ventana28
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;resultados_XGB.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">resultados_xgboost</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="errores-y-metricas">
+<h3><strong>Errores y métricas</strong><a class="headerlink" href="#errores-y-metricas" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tabla2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">clave</span><span class="p">,</span> <span class="n">valor</span> <span class="ow">in</span> <span class="n">resultados_xgboost</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">real</span> <span class="o">=</span> <span class="n">valor</span><span class="p">[</span><span class="s1">&#39;observado&#39;</span><span class="p">]</span>
+    <span class="n">predic</span> <span class="o">=</span> <span class="n">valor</span><span class="p">[</span><span class="s1">&#39;predicc&#39;</span><span class="p">]</span>
+    <span class="n">residuos</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;residuos&#39;</span><span class="p">]</span>
+    <span class="n">r2</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;score test&#39;</span><span class="p">]</span>
+    <span class="n">parametro</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;parametros&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># Calcular las métricas</span>
+    <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">predic</span><span class="p">)</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">predic</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+
+    <span class="n">ljung_box_results</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">residuos</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">jb_stat</span><span class="p">,</span> <span class="n">jb_pvalue</span> <span class="o">=</span> <span class="n">jarque_bera</span><span class="p">(</span><span class="n">residuos</span><span class="p">)</span>
+    
+    <span class="n">tabla_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;Ventana&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">clave</span><span class="o">/</span><span class="mi">24</span><span class="p">)],</span>
+        <span class="s1">&#39;parametro&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">parametro</span><span class="p">],</span>
+        <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mae</span><span class="p">],</span>
+        <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mse</span><span class="p">],</span>
+        <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">rmse</span><span class="p">],</span>
+        <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">r2</span><span class="p">],</span>
+        <span class="s1">&#39;Ljung-Box p-value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ljung_box_results</span><span class="p">[</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="s1">&#39;Jarque-Bera p-value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">jb_pvalue</span><span class="p">]</span>
+    <span class="p">})</span>
+    
+    <span class="n">tabla2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tabla2</span><span class="p">,</span> <span class="n">tabla_temp</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el DataFrame final</span>
+<span class="n">tabla2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ventana</th>
+      <th>parametro</th>
+      <th>MAE</th>
+      <th>MSE</th>
+      <th>RMSE</th>
+      <th>R2</th>
+      <th>Ljung-Box p-value</th>
+      <th>Jarque-Bera p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7</td>
+      <td>{'n_estimators': 150, 'learning_rate': 0.1, 'm...</td>
+      <td>9.318599</td>
+      <td>176.468969</td>
+      <td>13.284162</td>
+      <td>0.561280</td>
+      <td>0.002533</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14</td>
+      <td>{'n_estimators': 150, 'learning_rate': 0.1, 'm...</td>
+      <td>9.330692</td>
+      <td>176.002132</td>
+      <td>13.266580</td>
+      <td>0.563026</td>
+      <td>0.006831</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>21</td>
+      <td>{'n_estimators': 150, 'learning_rate': 0.1, 'm...</td>
+      <td>9.345935</td>
+      <td>175.613050</td>
+      <td>13.251907</td>
+      <td>0.564745</td>
+      <td>0.058421</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>28</td>
+      <td>{'n_estimators': 150, 'learning_rate': 0.1, 'm...</td>
+      <td>9.370624</td>
+      <td>175.875436</td>
+      <td>13.261804</td>
+      <td>0.564946</td>
+      <td>0.070654</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>En la tabla anterior se muestran los resultados para cada una de las ventanas, vemos que en general las métricas no varían en cada una de las ventanas, el promedio del score en el test es de 56%, lo único diferencial se encuentra al comparar los resultados de las pruebas analíticas para comprobar la independencia de los residuos, este supuesto solo se cumple para la ventana de 21 y 28 días, el score mayor se encuentra en la ventana de 28.</p>
+<section id="id1">
+<h4><strong>Gráfica para los supuestos</strong><a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">datos</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">resultados_xgboost</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">residuo</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;residuos&quot;</span><span class="p">]</span>
+    <span class="n">ax_hist</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  
+    <span class="n">ax_acf</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>   
+
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">residuo</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Histograma de los Residuos - ventana </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Valor del Residuo&quot;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
+
+    <span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">plot_acf</span><span class="p">(</span><span class="n">residuo</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_acf</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">ax_acf</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Autocorrelación de los Residuos - ventana </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9c132f554f5e6a1d551f8fb335b7fb5c43ae1aa0cbd4adce636ba6ab661a5b8c.png" src="_images/9c132f554f5e6a1d551f8fb335b7fb5c43ae1aa0cbd4adce636ba6ab661a5b8c.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="prediccion-en-el-conjunto-de-test">
+<h3><strong>Predicción en el conjunto de test</strong><a class="headerlink" href="#prediccion-en-el-conjunto-de-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">datos</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">resultados_xgboost</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;observado&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">]</span>
+    <span class="n">predic</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;predicc&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">]</span>
+    <span class="n">yTrain</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;entrenamiento y&quot;</span><span class="p">]</span>
+    <span class="n">scsoreTest</span><span class="o">=</span><span class="n">datos</span><span class="p">[</span><span class="s1">&#39;score test&#39;</span><span class="p">]</span>
+    <span class="n">ytrain</span><span class="o">=</span><span class="n">yTrain</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Observado&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#6a994e&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">predic</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">predic</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Predicho&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#e63946&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">ytrain</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Entrenamiento&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#386641&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ventana </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span><span class="si">}</span><span class="s2">, score en el test= </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">scsoreTest</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6572109026a15cfd6c828f9de6e2830f1d15e2a031b066dd52aeaf2e2063e8b8.png" src="_images/6572109026a15cfd6c828f9de6e2830f1d15e2a031b066dd52aeaf2e2063e8b8.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="svr">
+<h2><strong>SVR</strong><a class="headerlink" href="#svr" title="Link to this heading">#</a></h2>
+<p>Veamos el comportamiento del modelo SVR en nuetros datos de PM10.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultados_svr</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">14</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">21</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">24</span><span class="p">]:</span>
+    <span class="n">nb_timesteps</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">makeXy</span><span class="p">(</span><span class="n">data_pm10</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">],</span> <span class="n">nb_timesteps</span><span class="p">)</span>
+
+    <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.6</span><span class="p">)</span>  
+    <span class="n">val_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)</span>    
+
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">]</span>
+    <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:]</span>
+
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>          
+        <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>   
+    <span class="p">}</span>
+
+    <span class="n">best_score</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">best_params</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">best_model_svr</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ventana </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">C</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">]:</span>
+            
+            <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+                <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>       
+                <span class="p">(</span><span class="s1">&#39;svr&#39;</span><span class="p">,</span> <span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">))</span>  
+            <span class="p">])</span>
+
+            <span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+            <span class="n">y_val_pred</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_val_pred</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
+                <span class="n">best_score</span> <span class="o">=</span> <span class="n">score</span>
+                <span class="n">best_params</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">C</span><span class="p">,</span>
+                    <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="n">gamma</span>
+                <span class="p">}</span>
+                <span class="n">best_model_svr</span> <span class="o">=</span> <span class="n">pipeline</span>
+
+    <span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">best_model_svr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="n">resultados_svr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;parametros&#39;</span><span class="p">:</span> <span class="n">best_params</span><span class="p">,</span>
+        <span class="s1">&#39;score val&#39;</span><span class="p">:</span> <span class="n">best_score</span><span class="p">,</span>
+        <span class="s1">&#39;score test&#39;</span><span class="p">:</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred</span><span class="p">),</span>
+        <span class="s1">&#39;residuos&#39;</span><span class="p">:</span> <span class="n">y_test</span> <span class="o">-</span> <span class="n">y_test_pred</span><span class="p">,</span>
+        <span class="s1">&#39;predicc&#39;</span><span class="p">:</span> <span class="n">y_test_pred</span><span class="p">,</span>
+        <span class="s1">&#39;modelo&#39;</span><span class="p">:</span> <span class="n">best_model_svr</span><span class="p">,</span>
+        <span class="s1">&#39;entrenamiento y&#39;</span><span class="p">:</span> <span class="n">y_train</span><span class="p">,</span>
+        <span class="s1">&#39;observado&#39;</span><span class="p">:</span> <span class="n">y_test</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;resultados_SVR.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">SVR_result</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h3><strong>Errores y métricas</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tabla3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">clave</span><span class="p">,</span> <span class="n">valor</span> <span class="ow">in</span> <span class="n">SVR_result</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">real</span> <span class="o">=</span> <span class="n">valor</span><span class="p">[</span><span class="s1">&#39;observado&#39;</span><span class="p">]</span>
+    <span class="n">predic</span> <span class="o">=</span> <span class="n">valor</span><span class="p">[</span><span class="s1">&#39;predicc&#39;</span><span class="p">]</span>
+    <span class="n">residuos</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;residuos&#39;</span><span class="p">]</span>
+    <span class="n">r2</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;score test&#39;</span><span class="p">]</span>
+    <span class="n">parametro</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;parametros&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># Calcular las métricas</span>
+    <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">predic</span><span class="p">)</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">predic</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+
+    <span class="n">ljung_box_results</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">residuos</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">jb_stat</span><span class="p">,</span> <span class="n">jb_pvalue</span> <span class="o">=</span> <span class="n">jarque_bera</span><span class="p">(</span><span class="n">residuos</span><span class="p">)</span>
+    
+    <span class="n">tabla_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;Ventana&#39;</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">clave</span><span class="o">/</span><span class="mi">24</span><span class="p">)],</span>
+        <span class="s1">&#39;parametro&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">parametro</span><span class="p">],</span>
+        <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mae</span><span class="p">],</span>
+        <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mse</span><span class="p">],</span>
+        <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">rmse</span><span class="p">],</span>
+        <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">r2</span><span class="p">],</span>
+        <span class="s1">&#39;Ljung-Box p-value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ljung_box_results</span><span class="p">[</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="s1">&#39;Jarque-Bera p-value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">jb_pvalue</span><span class="p">]</span>
+    <span class="p">})</span>
+    
+    <span class="n">tabla3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tabla3</span><span class="p">,</span> <span class="n">tabla_temp</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">tabla3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Ventana</th>
+      <th>parametro</th>
+      <th>MAE</th>
+      <th>MSE</th>
+      <th>RMSE</th>
+      <th>R2</th>
+      <th>Ljung-Box p-value</th>
+      <th>Jarque-Bera p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7</td>
+      <td>{'C': 10, 'gamma': 0.01}</td>
+      <td>9.490015</td>
+      <td>183.764379</td>
+      <td>13.555972</td>
+      <td>0.543143</td>
+      <td>1.421389e-83</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14</td>
+      <td>{'C': 10, 'gamma': 0.01}</td>
+      <td>11.250601</td>
+      <td>242.686750</td>
+      <td>15.578407</td>
+      <td>0.397463</td>
+      <td>0.000000e+00</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>21</td>
+      <td>{'C': 10, 'gamma': 0.01}</td>
+      <td>13.192145</td>
+      <td>320.834728</td>
+      <td>17.911860</td>
+      <td>0.204815</td>
+      <td>0.000000e+00</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>28</td>
+      <td>{'C': 10, 'gamma': 0.01}</td>
+      <td>13.587386</td>
+      <td>352.553435</td>
+      <td>18.776406</td>
+      <td>0.127907</td>
+      <td>0.000000e+00</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Los resultados obtenidos para cada ventana muestran una tendencia clara de disminución en el rendimiento del modelo SVR a medida que aumenta el tamaño de la ventana. La ventana de 7 días presenta el mejor desempeño, con un R2 de 0.543 y valores relativamente bajos de error.  Además, los análisis de residuos indican la presencia de autocorrelación y no normalidad en todas las ventanas, lo que sugiere que el modelo subyacente podría no ser adecuado o que los datos requieren un preprocesamiento adicional.</p>
+<section id="graficos-de-los-supuestos">
+<h4><strong>Gráficos de los supuestos</strong><a class="headerlink" href="#graficos-de-los-supuestos" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>  
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">datos</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">SVR_result</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">residuo</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;residuos&quot;</span><span class="p">]</span>
+    <span class="n">ax_hist</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  
+    <span class="n">ax_acf</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>   
+
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">residuo</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Histograma de los Residuos - ventana </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Valor del Residuo&quot;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
+
+    <span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">plot_acf</span><span class="p">(</span><span class="n">residuo</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_acf</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">ax_acf</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Autocorrelación de los Residuos - ventana </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/23781e6eea4812738c2ed0f99f9e458ba803b61f557bec6df25737d9f09e6d72.png" src="_images/23781e6eea4812738c2ed0f99f9e458ba803b61f557bec6df25737d9f09e6d72.png" />
+</div>
+</div>
+<p>En las gráficas anteriores podemos apreciar el de manera gráfica el comportamiento que tiene los residuos y es bastante evidente la correlación que hay entre los residuos lo que hace que este modelo no tiene un buen rendimiento para estos datos.</p>
+</section>
+</section>
+<section id="id3">
+<h3><strong>Predicciones en el test</strong><a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">datos</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">SVR_result</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;observado&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">]</span>
+    <span class="n">predic</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;predicc&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">]</span>
+    <span class="n">yTrain</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;entrenamiento y&quot;</span><span class="p">]</span>
+    <span class="n">scsoreTest</span><span class="o">=</span><span class="n">datos</span><span class="p">[</span><span class="s1">&#39;score test&#39;</span><span class="p">]</span>
+    <span class="n">ytrain</span><span class="o">=</span><span class="n">yTrain</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Observado&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#6a994e&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">predic</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">predic</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Predicho&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#e63946&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">ytrain</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Entrenamiento&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#386641&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ventana </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span><span class="si">}</span><span class="s2">, score en el test= </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">scsoreTest</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/476d17d096edbe51b236acc572fd08bcee63a535ffe96ebc6402da8941f68468.png" src="_images/476d17d096edbe51b236acc572fd08bcee63a535ffe96ebc6402da8941f68468.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="hibrido-xgboost-svr">
+<h2><strong>Hibrido XGBoost - SVR</strong><a class="headerlink" href="#hibrido-xgboost-svr" title="Link to this heading">#</a></h2>
+<p><em><strong>Metodología:</strong></em> La implementación de este modelo hibrido cuenta con ciertos elementos que serán explicados a continuación:</p>
+<ol class="arabic simple">
+<li><p>Como modelo base se implemento un modelo XGBoost, el cual tiene la tarea de capturar patrones generales en los datos.</p></li>
+<li><p>Luego del ajuste de nuestro modelo base es necesario calcular sus residuos, es decir aquel patrón que el modelo no puedo capturar, y es ahí donde entre el modelo secundario.</p></li>
+<li><p>Como propuesta de modelo secundario se implemento una regresión de vectores de soporte el cual será entrenado con los residuos del modelo base.</p></li>
+<li><p>Como paso final se obtiene la predicción del modelo hibrido que resulta en la combinación de la predicción del modelo base y la prediccion del modelos secundario.</p></li>
+</ol>
+<p>Con estos aspectos claros podemos pasar a analizar los resultados que tuvo esta propuesta en la predicción de la partícula de PM10.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">makeXy</span><span class="p">(</span><span class="n">data_pm10</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">],</span> <span class="mi">28</span><span class="o">*</span><span class="mi">24</span><span class="p">)</span>
+
+<span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.8</span><span class="p">)</span>  
+
+<span class="n">train_X</span><span class="p">,</span> <span class="n">train_y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_size</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+<span class="n">test_X</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_size</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hybrid_xgboost_svr_with_metrics</span><span class="p">(</span><span class="n">train_X</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">test_X</span><span class="p">,</span> <span class="n">test_y</span><span class="p">):</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ajustando el modelo XGB&#39;</span><span class="p">)</span>
+    <span class="n">xgb_model</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span><span class="n">tree_method</span><span class="o">=</span><span class="s1">&#39;gpu_hist&#39;</span><span class="p">,</span> <span class="n">predictor</span><span class="o">=</span><span class="s1">&#39;gpu_predictor&#39;</span><span class="p">)</span>
+    <span class="n">xgb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_X</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+    
+    <span class="c1"># Predicciones iniciales</span>
+    <span class="n">xgb_train_pred</span> <span class="o">=</span> <span class="n">xgb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train_X</span><span class="p">)</span>
+    <span class="n">xgb_test_pred</span> <span class="o">=</span> <span class="n">xgb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_X</span><span class="p">)</span>
+    
+    <span class="c1"># Paso 2: Calcular residuos</span>
+    <span class="n">train_residuals</span> <span class="o">=</span> <span class="n">train_y</span> <span class="o">-</span> <span class="n">xgb_train_pred</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ajustando el modelo SVR&#39;</span><span class="p">)</span>
+    <span class="c1"># Paso 3: Ajustar el modelo SVR en los residuos</span>
+    <span class="n">svr_model</span> <span class="o">=</span> <span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">svr_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_X</span><span class="p">,</span> <span class="n">train_residuals</span><span class="p">)</span>
+    
+    <span class="c1"># Predicción de residuos para el conjunto de prueba</span>
+    <span class="n">svr_train_residuals_pred</span> <span class="o">=</span> <span class="n">svr_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train_X</span><span class="p">)</span>
+    <span class="n">svr_test_residuals_pred</span> <span class="o">=</span> <span class="n">svr_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_X</span><span class="p">)</span>
+    
+    <span class="c1"># Paso 4: Combinar predicciones</span>
+    <span class="n">hybrid_train_pred</span> <span class="o">=</span> <span class="n">xgb_train_pred</span> <span class="o">+</span> <span class="n">svr_train_residuals_pred</span>
+    <span class="n">hybrid_test_pred</span> <span class="o">=</span> <span class="n">xgb_test_pred</span> <span class="o">+</span> <span class="n">svr_test_residuals_pred</span>
+    
+    <span class="c1"># Métricas del modelo híbrido</span>
+    <span class="n">train_rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">train_y</span><span class="p">,</span> <span class="n">hybrid_train_pred</span><span class="p">))</span>
+    <span class="n">test_rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_y</span><span class="p">,</span> <span class="n">hybrid_test_pred</span><span class="p">))</span>
+    <span class="n">train_r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">train_y</span><span class="p">,</span> <span class="n">hybrid_train_pred</span><span class="p">)</span>
+    <span class="n">test_r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">test_y</span><span class="p">,</span> <span class="n">hybrid_test_pred</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE de entrenamiento (híbrido): </span><span class="si">{</span><span class="n">train_rmse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R² de entrenamiento (híbrido): </span><span class="si">{</span><span class="n">train_r2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE de prueba (híbrido): </span><span class="si">{</span><span class="n">test_rmse</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R² de prueba (híbrido): </span><span class="si">{</span><span class="n">test_r2</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Paso 5: Prueba de autocorrelación (Ljung-Box)</span>
+    <span class="n">residuals_hybrid</span> <span class="o">=</span> <span class="n">test_y</span> <span class="o">-</span> <span class="n">hybrid_test_pred</span>
+    <span class="n">lb_test</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">residuals_hybrid</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lb_pvalue</span> <span class="o">=</span> <span class="n">lb_test</span><span class="p">[</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prueba de Ljung-Box (p-valor para residuos híbridos): </span><span class="si">{</span><span class="n">lb_pvalue</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lb_pvalue</span> <span class="o">&gt;</span> <span class="mf">0.05</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se detecta autocorrelación significativa en los residuos (p &gt; 0.05).&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Se detecta autocorrelación significativa en los residuos (p ≤ 0.05).&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">hybrid_test_pred</span><span class="p">,</span> <span class="n">residuals_hybrid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hybrid_predictions</span><span class="p">,</span> <span class="n">residuals</span> <span class="o">=</span> <span class="n">hybrid_xgboost_svr_with_metrics</span><span class="p">(</span><span class="n">train_X</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">test_X</span><span class="p">,</span> <span class="n">test_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;resultados_hibrido_xgb_svr.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">hybrid</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id4">
+<h3><strong>Métricas y errores</strong><a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tabla4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">clave</span><span class="p">,</span> <span class="n">valor</span> <span class="ow">in</span> <span class="n">hybrid</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">real</span> <span class="o">=</span> <span class="n">valor</span><span class="p">[</span><span class="s1">&#39;observado&#39;</span><span class="p">]</span>
+    <span class="n">predic</span> <span class="o">=</span> <span class="n">valor</span><span class="p">[</span><span class="s1">&#39;predicc&#39;</span><span class="p">]</span>
+    <span class="n">residuos</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;residuos&#39;</span><span class="p">]</span>
+    <span class="n">r2</span><span class="o">=</span><span class="n">valor</span><span class="p">[</span><span class="s1">&#39;score test&#39;</span><span class="p">]</span>
+    <span class="n">parametro</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;XGB&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;n_estimators=100, learning_rate=0.1, max_depth=5&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;SVR&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;C=100,Gamma=0.01, epsilon=0.01&#39;</span><span class="p">]}</span>
+    
+    <span class="c1"># Calcular las métricas</span>
+    <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">predic</span><span class="p">)</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">real</span><span class="p">,</span> <span class="n">predic</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+
+    <span class="n">ljung_box_results</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">residuos</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">jb_stat</span><span class="p">,</span> <span class="n">jb_pvalue</span> <span class="o">=</span> <span class="n">jarque_bera</span><span class="p">(</span><span class="n">residuos</span><span class="p">)</span>
+    
+    <span class="n">tabla_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;parametro&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">parametro</span><span class="p">],</span>
+        <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mae</span><span class="p">],</span>
+        <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">mse</span><span class="p">],</span>
+        <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">rmse</span><span class="p">],</span>
+        <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">r2</span><span class="p">],</span>
+        <span class="s1">&#39;Ljung-Box p-value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ljung_box_results</span><span class="p">[</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="s1">&#39;Jarque-Bera p-value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">jb_pvalue</span><span class="p">]</span>
+    <span class="p">})</span>
+    
+    <span class="n">tabla4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tabla4</span><span class="p">,</span> <span class="n">tabla_temp</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el DataFrame final</span>
+<span class="n">tabla4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>parametro</th>
+      <th>MAE</th>
+      <th>MSE</th>
+      <th>RMSE</th>
+      <th>R2</th>
+      <th>Ljung-Box p-value</th>
+      <th>Jarque-Bera p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{'XGB': ['n_estimators=100, learning_rate=0.1,...</td>
+      <td>9.360237</td>
+      <td>174.816237</td>
+      <td>13.221809</td>
+      <td>0.567566</td>
+      <td>0.079449</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>En la tabla anterior se puede observar las metricas de error para el modelo híbrido, podemos notar que los errores son relativamente bajos, podemos mencionar que se obtuvi un RMSE de 13.22, si analizamos el coeficiente de determinacion del modelo, nos encontramos con <span class="math notranslate nohighlight">\(r^2\)</span> moderado a pesar de que se esperaba un mejor rendimiento, vemos que se cumple el supuesto de independencia de los residuos, lo cual es un aspecto importante a resaltar.</p>
+<section id="graficas-para-los-supuestos">
+<h4><strong>Graficas para los supuestos</strong><a class="headerlink" href="#graficas-para-los-supuestos" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">squeeze</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">datos</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hybrid</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">residuo</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;residuos&quot;</span><span class="p">]</span>
+    <span class="n">ax_hist</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">ax_acf</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>   
+
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">residuo</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Histograma de los Residuos&quot;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax_hist</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">tsa</span><span class="o">.</span><span class="n">plot_acf</span><span class="p">(</span><span class="n">residuo</span><span class="p">,</span> <span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_acf</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">ax_acf</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Autocorrelación de los Residuos &quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8b4dc3a1305e4b25d7fc6bd0a9d3b12d76890498cb4ed6ee887196f0406cd257.png" src="_images/8b4dc3a1305e4b25d7fc6bd0a9d3b12d76890498cb4ed6ee887196f0406cd257.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="predicciones-en-el-conjunto-de-test">
+<h3><strong>Predicciones en el conjunto de test</strong><a class="headerlink" href="#predicciones-en-el-conjunto-de-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+
+<span class="c1"># Crear una figura y un solo eje</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Iterar sobre los elementos de Arima y graficar</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">datos</span> <span class="ow">in</span> <span class="n">hybrid</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;observado&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">]</span>
+    <span class="n">predic</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s2">&quot;predicc&quot;</span><span class="p">][:</span><span class="mi">500</span><span class="p">]</span>
+    <span class="n">scsoreTest</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;score test&#39;</span><span class="p">]</span>
+    <span class="n">ytrain</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="s1">&#39;entrenamiento y&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">100</span><span class="p">:]</span>
+
+    <span class="c1"># Graficar las líneas</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Observado&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#6a994e&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">predic</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">predic</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Predicho&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#e63946&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ytrain</span><span class="p">)),</span> <span class="n">y</span><span class="o">=</span><span class="n">ytrain</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Entrenamiento&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#386641&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="c1"># Configurar título y etiquetas</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Modelo híbrido XGboost - SVR: Score en el test = </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">scsoreTest</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Ajustar diseño y mostrar</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/487f374995b5bca876491034421c2d2343ca63b829e5af15cddf5f76d2e27947.png" src="_images/487f374995b5bca876491034421c2d2343ca63b829e5af15cddf5f76d2e27947.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="conclusiones">
+<h2><strong>Conclusiones</strong><a class="headerlink" href="#conclusiones" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">tabla1</span><span class="p">,</span> <span class="n">tabla2</span><span class="p">,</span> <span class="n">tabla3</span><span class="p">,</span><span class="n">tabla4</span><span class="p">]</span>
+
+<span class="n">rows_with_max_r2</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;R2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()]</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">dataframes</span><span class="p">]</span>
+
+<span class="n">df_max_r2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows_with_max_r2</span><span class="p">)</span>
+
+<span class="n">df_max_r2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Ventana&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">,</span><span class="s1">&#39;XGBoost&#39;</span><span class="p">,</span><span class="s1">&#39;SVR&#39;</span><span class="p">,</span><span class="s1">&#39;Hibrido&#39;</span><span class="p">]</span>
+<span class="n">df_max_r2</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Modelo&#39;</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+<span class="n">df_max_r2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>parametro</th>
+      <th>MAE</th>
+      <th>MSE</th>
+      <th>RMSE</th>
+      <th>R2</th>
+      <th>Ljung-Box p-value</th>
+      <th>Jarque-Bera p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Random Forest</td>
+      <td>{'n_estimators': 150, 'max_depth': 20}</td>
+      <td>9.340586</td>
+      <td>178.054768</td>
+      <td>13.343716</td>
+      <td>0.557930</td>
+      <td>2.430456e-04</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>XGBoost</td>
+      <td>{'n_estimators': 150, 'learning_rate': 0.1, 'm...</td>
+      <td>9.370624</td>
+      <td>175.875436</td>
+      <td>13.261804</td>
+      <td>0.564946</td>
+      <td>7.065355e-02</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>SVR</td>
+      <td>{'C': 10, 'gamma': 0.01}</td>
+      <td>9.490015</td>
+      <td>183.764379</td>
+      <td>13.555972</td>
+      <td>0.543143</td>
+      <td>1.421389e-83</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Hibrido</td>
+      <td>{'XGB': ['n_estimators=100, learning_rate=0.1,...</td>
+      <td>9.360237</td>
+      <td>174.816237</td>
+      <td>13.221809</td>
+      <td>0.567566</td>
+      <td>7.944937e-02</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>La tabla presenta un comparativo entre cuatro modelos: Random Forest, XGBoost, SVR y un modelo híbrido. El modelo híbrido, que combina XGBoost con el modelo de SVR, muestra un rendimiento ligeramente superior al resto en términos de R2, lo que indica una mejor capacidad para explicar la variabilidad en los datos. Ademas, el modelo híbrido cumple el supuesto de independencia en los residuos lo cual era lo esperado. A pesar del buen desempeño del modelo híbrido, sabemos que este puede mejorar, lo que nos da pie a que esta investigación continue en la busqueda de un modelo mas robusto que nos ayude a predecir la partícula de pm10, sabemos que al solucionar esta problemática podríamos ayudar a la prevención de daños causados por esta partícula contaminante, por lo cual nos motiva a continuar.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "ml_venv"
+        },
+        kernelOptions: {
+            name: "ml_venv",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ml_venv'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="EDA.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Análisis exploratorio de los datos</strong></p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia"><em><strong>Metodología</strong></em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-forest"><strong>Random Forest</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas-y-errores"><strong>Métricas y errores</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#grafica-para-los-supuestos"><strong>Gráfica para los supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predicciones-en-el-test"><strong>Predicciones en el test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xgboost"><strong>XGBoost</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errores-y-metricas"><strong>Errores y métricas</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Gráfica para los supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediccion-en-el-conjunto-de-test"><strong>Predicción en el conjunto de test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svr"><strong>SVR</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Errores y métricas</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficos-de-los-supuestos"><strong>Gráficos de los supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Predicciones en el test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hibrido-xgboost-svr"><strong>Hibrido XGBoost - SVR</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Métricas y errores</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#graficas-para-los-supuestos"><strong>Graficas para los supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predicciones-en-el-conjunto-de-test"><strong>Predicciones en el conjunto de test</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones"><strong>Conclusiones</strong></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Gwyneth Blanco & Nicoll Fontalvo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

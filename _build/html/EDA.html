@@ -1,0 +1,2814 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análisis exploratorio de los datos &#8212; Proyecto final Machine Learning &amp; Visualización de Datos</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'EDA';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Implementacion de modelos de regresion" href="modelosPM10.html" />
+    <link rel="prev" title="Contextualización" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/uninortelogo.jpeg" class="logo__image only-light" alt="Proyecto final Machine Learning & Visualización de Datos - Home"/>
+    <script>document.write(`<img src="_static/uninortelogo.jpeg" class="logo__image only-dark" alt="Proyecto final Machine Learning & Visualización de Datos - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Contextualización
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Análisis exploratorio de los datos</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelosPM10.html"><strong>Implementacion de modelos de regresion</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FEDA.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/EDA.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Análisis exploratorio de los datos</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contextualizacion"><strong>Contextualización</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estaciones-de-monitoreo"><em><strong>Estaciones de monitoreo.</strong></em></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis"><strong>Análisis</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivotado-del-conjunto-de-datos"><strong>Pivotado del conjunto de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtro-por-estacion"><strong>Filtro por estación</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ermita"><strong>Ermita</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-de-tiempo-de-pm10-en-la-estacion-ermita"><strong>Serie de tiempo de PM10 en la estación ermita</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-de-tiempo-2017-2019"><strong>Serie de tiempo 2017-2019</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-de-la-serie"><strong>Comportamiento de la serie</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-arma-para-la-imputacion-de-datos-faltantes"><strong>Modelo ARMA para la imputación de datos faltantes.</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ajuste-del-modelo"><strong>Ajuste del modelo</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-supuestos"><strong>Revisión de supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-de-tiempo-2020-2022"><strong>Serie de tiempo 2020-2022</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Comportamiento de la serie</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Modelo ARMA para la imputación de datos faltantes</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ajustando-el-modelo"><strong>Ajustando el modelo.</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Revisión de supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-final"><strong>Serie final</strong></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analisis-exploratorio-de-los-datos">
+<h1><strong>Análisis exploratorio de los datos</strong><a class="headerlink" href="#analisis-exploratorio-de-los-datos" title="Link to this heading">#</a></h1>
+<section id="contextualizacion">
+<h2><strong>Contextualización</strong><a class="headerlink" href="#contextualizacion" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">statsmodels.tsa.api</span> <span class="k">as</span> <span class="nn">smtsa</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.stattools</span> <span class="kn">import</span> <span class="n">adfuller</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span>
+<span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_pacf</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.seasonal</span> <span class="kn">import</span> <span class="n">seasonal_decompose</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Se conoce como PM10 a aquellas partículas sólidas o líquidas de diferente composición que se encuentran dispersas en la atmósfera. Estas pueden ser causadas por consecuencias humanas o naturales. Las características más importantes de estas partículas tienen un diámetro aerodinámico menor que 10 <span class="math notranslate nohighlight">\(\mu m\)</span>. Al ser estas partículas tan pequeñas, estas pueden ser inhaladas por nuestro sistema respiratorio, por esto se les conoce a estas partículas como <strong>fracción respirable</strong>.</p>
+<p>Es de interés el estudio de la presencia de estas partículas, puesto que generan efectos adversos sobre la salud, como asma agravada, función pulmonar reducida, irritación en las vías respiratorias, hasta muerte prematura en personas con enfermedades cardíacas o pulmonares.</p>
+<p>En este proyecto serán usados datos que han sido recolectados en las estaciones de muestreo de la calidad del aire por el DAGMA (Departamento Administrativo de Gestión del Medio Ambiente) de la ciudad de Cali.</p>
+<section id="estaciones-de-monitoreo">
+<h3><em><strong>Estaciones de monitoreo.</strong></em><a class="headerlink" href="#estaciones-de-monitoreo" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>La Flora</p></li>
+<li><p>ERA - Obrero</p></li>
+<li><p>Transitoria EDB-Navarro</p></li>
+<li><p>Base Aérea</p></li>
+<li><p>Pance</p></li>
+<li><p>Univalle</p></li>
+<li><p>Compartir</p></li>
+<li><p>La Ermita</p></li>
+<li><p>Cañaveralejo</p></li>
+</ol>
+</section>
+</section>
+<section id="analisis">
+<h2><strong>Análisis</strong><a class="headerlink" href="#analisis" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;C:/Users/fonta/OneDrive/Escritorio/data_2017_2022.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fecha</th>
+      <th>estacion</th>
+      <th>variable</th>
+      <th>tipo</th>
+      <th>medicion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4084056</th>
+      <td>2022-12-31T23:59:59Z</td>
+      <td>era_obrero</td>
+      <td>velocidad_viento</td>
+      <td>val</td>
+      <td>0,4000000000000000</td>
+    </tr>
+    <tr>
+      <th>4084057</th>
+      <td>2022-12-31T23:59:59Z</td>
+      <td>canaveralejo</td>
+      <td>velocidad_viento</td>
+      <td>val</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4084058</th>
+      <td>2022-12-31T23:59:59Z</td>
+      <td>canaveralejo</td>
+      <td>direccion_viento</td>
+      <td>val</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4084059</th>
+      <td>2022-12-31T23:59:59Z</td>
+      <td>canaveralejo</td>
+      <td>lluvia</td>
+      <td>val</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4084060</th>
+      <td>2022-12-31T23:59:59Z</td>
+      <td>canaveralejo</td>
+      <td>radiacion_solar</td>
+      <td>val</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4084061, 5)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nuestro dataset cuenta con 4.084.061 de registros inicialmente, pero luego de unos procesos estos registros se reducirán.Estos registros fueron tomados desde diferentes bases de medición y observados en el tiempo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">fecha</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;2017-01-01T00:59:59Z&#39;, &#39;2017-01-01T01:59:59Z&#39;,
+       &#39;2017-01-01T02:59:59Z&#39;, ..., &#39;2022-12-31T21:59:59Z&#39;,
+       &#39;2022-12-31T22:59:59Z&#39;, &#39;2022-12-31T23:59:59Z&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Como primer análisis de nuestro conjunto de datos, vemos que se tienen registros desde el año 2017 hasta 2022, estos registros estan tomados por cada hora de cada día durante estos 6 años.</p>
+<p><strong>Variables únicas</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;pm25&#39;, &#39;so2&#39;, &#39;lluvia&#39;, &#39;o3&#39;, &#39;temperatura&#39;, &#39;pm10&#39;, &#39;humedad&#39;,
+       &#39;velocidad_viento&#39;, &#39;direccion_viento&#39;, &#39;radiacion_solar&#39;,
+       &#39;presion&#39;, &#39;no2&#39;, &#39;uv-pm&#39;, &#39;black_carbon&#39;, &#39;h2s&#39;,
+       &#39;temperatura_10_m&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nuestro dataset tiene un total de 16 variables, pero recordemos que el interés de este proyecto es predecir la comtamicación por la particula del Pm10, así que mas adelante trabajaremos solo con los registros correspondientes de esta variable.</p>
+<p>Este dataset viene organizado de una manera no tan adecuada para su estudio, es por eso que es necesario hacer un pivotado, con el fin de poder tener acceso mejor a los datos de interés.</p>
+</section>
+<section id="pivotado-del-conjunto-de-datos">
+<h2><strong>Pivotado del conjunto de datos</strong><a class="headerlink" href="#pivotado-del-conjunto-de-datos" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="s1">&#39;estacion&#39;</span><span class="p">],</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;variable&#39;</span><span class="p">,</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;medicion&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span><span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">data1</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>estacion</th>
+      <th>black_carbon</th>
+      <th>direccion_viento</th>
+      <th>h2s</th>
+      <th>humedad</th>
+      <th>lluvia</th>
+      <th>no2</th>
+      <th>o3</th>
+      <th>pm10</th>
+      <th>pm25</th>
+      <th>presion</th>
+      <th>radiacion_solar</th>
+      <th>so2</th>
+      <th>temperatura</th>
+      <th>temperatura_10_m</th>
+      <th>uv-pm</th>
+      <th>velocidad_viento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01T00:59:59Z</td>
+      <td>base_aerea</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-01-01T00:59:59Z</td>
+      <td>canaveralejo</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>51,7000000000000028</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0,3142645629907114</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-01-01T00:59:59Z</td>
+      <td>compartir</td>
+      <td>NaN</td>
+      <td>208,5999999999999943</td>
+      <td>NaN</td>
+      <td>75,9000000000000057</td>
+      <td>0,0000000000000000</td>
+      <td>NaN</td>
+      <td>8,4562520617694883</td>
+      <td>221,0000000000000000</td>
+      <td>161,0000000000000000</td>
+      <td>680,5000000000000000</td>
+      <td>0,0000000000000000</td>
+      <td>NaN</td>
+      <td>25,3000000000000007</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1,3999999999999999</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-01-01T00:59:59Z</td>
+      <td>era_obrero</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0,0000000000000000</td>
+      <td>NaN</td>
+      <td>16,1473212223579807</td>
+      <td>195,8000000000000114</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-01-01T00:59:59Z</td>
+      <td>ermita</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61,8999999999999986</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2,1474745137698608</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(473256, 18)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Luego de los procesos anteriores vemos que ahora tenemos un nuevo dataset, esta vez con las variables organizadas adecuadamente y con su respectiva medición, así obtenemos un conjunto final de 473.256 registros y 18 variables.</p>
+<p>Veamos las proporciones de datos faltantes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_data</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>variable
+fecha                    0
+estacion                 0
+black_carbon        464636
+direccion_viento    268837
+h2s                 457903
+humedad             242369
+lluvia              212585
+no2                 473255
+o3                  271320
+pm10                238688
+pm25                298710
+presion             264075
+radiacion_solar     251972
+so2                 341076
+temperatura         206050
+temperatura_10_m    459510
+uv-pm               464636
+velocidad_viento    267851
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Según lo anterior vemos cuantos valores faltantes por cada variable, en este caso es de nuestro interés solo la variable PM10, que en esta caso cuenta con 238.688 registros faltantes, mas adelante veremos como trataremos estos datos faltantes.</p>
+<p>Es importante ajustar el formato de algunas de las variables por ejemplo la fecha:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">],</span> <span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data1</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0        2017-01-01 00:59:59+00:00
+1        2017-01-01 00:59:59+00:00
+2        2017-01-01 00:59:59+00:00
+3        2017-01-01 00:59:59+00:00
+4        2017-01-01 00:59:59+00:00
+                    ...           
+473251   2022-12-31 23:59:59+00:00
+473252   2022-12-31 23:59:59+00:00
+473253   2022-12-31 23:59:59+00:00
+473254   2022-12-31 23:59:59+00:00
+473255   2022-12-31 23:59:59+00:00
+Name: fecha, Length: 473256, dtype: datetime64[ns, UTC]
+</pre></div>
+</div>
+</div>
+</div>
+<p>A continuación debemos ajustar los caracteres de puntuación en la variable de interés.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data1</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">data1</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">data1</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0           NaN
+1          51.7
+2         221.0
+3         195.8
+4          61.9
+          ...  
+473251      NaN
+473252      NaN
+473253      NaN
+473254      NaN
+473255      NaN
+Name: pm10, Length: 473256, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Puesto que la cantidad de datos faltantes es muy grande y con el fin de hacer un estudio de manera específica, se harán unos filtros por cada estación y se trabajará para este proyecto la estación que tenga menos datos faltantes.</p>
+</section>
+<section id="filtro-por-estacion">
+<h2><strong>Filtro por estación</strong><a class="headerlink" href="#filtro-por-estacion" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">baseaerea</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s2">&quot;estacion&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;base_aerea&quot;</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">compartir</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s2">&quot;estacion&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;compartir&quot;</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">univalle</span> <span class="o">=</span>  <span class="n">data1</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s2">&quot;estacion&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;univalle&quot;</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">canaveralejo</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s2">&quot;estacion&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;canaveralejo&quot;</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">ermita</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s2">&quot;estacion&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;ermita&quot;</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">eraobrero</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s2">&quot;estacion&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;era_obrero&quot;</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">flora</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s2">&quot;estacion&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;flora&quot;</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">pance</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s2">&quot;estacion&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;pance&quot;</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">transitoria</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s2">&quot;estacion&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;transitoria&quot;</span><span class="p">)</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">baseaerea_na</span> <span class="o">=</span> <span class="n">baseaerea</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">compartir_na</span> <span class="o">=</span> <span class="n">compartir</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">univalle_na</span> <span class="o">=</span> <span class="n">univalle</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">canaveralejo_na</span> <span class="o">=</span> <span class="n">canaveralejo</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">ermita_na</span> <span class="o">=</span> <span class="n">ermita</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">eraobrero_na</span> <span class="o">=</span> <span class="n">eraobrero</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">flora_na</span> <span class="o">=</span> <span class="n">flora</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">pance_na</span> <span class="o">=</span> <span class="n">pance</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">transitoria_na</span> <span class="o">=</span> <span class="n">transitoria</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">values_pm10</span><span class="o">=</span><span class="p">[</span><span class="n">baseaerea_na</span><span class="p">,</span><span class="n">compartir_na</span><span class="p">,</span><span class="n">univalle_na</span><span class="p">,</span><span class="n">canaveralejo_na</span><span class="p">,</span><span class="n">ermita_na</span><span class="p">,</span><span class="n">eraobrero_na</span><span class="p">,</span><span class="n">flora_na</span><span class="p">,</span><span class="n">pance_na</span><span class="p">,</span><span class="n">transitoria_na</span><span class="p">]</span>
+<span class="n">values_pm10</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">values_pm10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">values_pm10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NA en pm10 para base_aerea:&quot;</span><span class="p">,</span> <span class="n">baseaerea_na</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NA en pm10 para base_aerea:&quot;</span><span class="p">,</span> <span class="n">compartir_na</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NA en pm10 para univalle:&quot;</span><span class="p">,</span> <span class="n">univalle_na</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NA en pm10 para canaveralejo:&quot;</span><span class="p">,</span> <span class="n">canaveralejo_na</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NA en pm10 para ermita:&quot;</span><span class="p">,</span> <span class="n">ermita_na</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NA en pm10 para era_obrero:&quot;</span><span class="p">,</span> <span class="n">eraobrero_na</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NA en pm10 para flora:&quot;</span><span class="p">,</span> <span class="n">flora_na</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NA en pm10 para base_aerea:&quot;</span><span class="p">,</span> <span class="n">pance_na</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NA en pm10 para transitoria:&quot;</span><span class="p">,</span> <span class="n">transitoria_na</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[13410, 14301, 16819, 16986, 17459, 21497, 40761, 44871, 52584]
+
+NA en pm10 para base_aerea: 52584
+NA en pm10 para base_aerea: 14301
+NA en pm10 para univalle: 40761
+NA en pm10 para canaveralejo: 21497
+NA en pm10 para ermita: 13410
+NA en pm10 para era_obrero: 17459
+NA en pm10 para flora: 16986
+NA en pm10 para base_aerea: 16819
+NA en pm10 para transitoria: 44871
+</pre></div>
+</div>
+</div>
+</div>
+<p>Al hacer los respectivos filtros y cuentas vemos que la estación con menos valores faltantes es la estación de ERMITA así que de ahora en adelante se trabajará solo con esta base de datos.</p>
+</section>
+<section id="ermita">
+<h2><strong>Ermita</strong><a class="headerlink" href="#ermita" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ermita</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 52584 entries, 4 to 473251
+Data columns (total 18 columns):
+ #   Column            Non-Null Count  Dtype              
+---  ------            --------------  -----              
+ 0   fecha             52584 non-null  datetime64[ns, UTC]
+ 1   estacion          52584 non-null  object             
+ 2   black_carbon      0 non-null      object             
+ 3   direccion_viento  0 non-null      object             
+ 4   h2s               0 non-null      object             
+ 5   humedad           26997 non-null  object             
+ 6   lluvia            0 non-null      object             
+ 7   no2               0 non-null      object             
+ 8   o3                0 non-null      object             
+ 9   pm10              39174 non-null  float64            
+ 10  pm25              13878 non-null  object             
+ 11  presion           22874 non-null  object             
+ 12  radiacion_solar   0 non-null      object             
+ 13  so2               33476 non-null  object             
+ 14  temperatura       32687 non-null  object             
+ 15  temperatura_10_m  0 non-null      object             
+ 16  uv-pm             0 non-null      object             
+ 17  velocidad_viento  0 non-null      object             
+dtypes: datetime64[ns, UTC](1), float64(1), object(16)
+memory usage: 7.6+ MB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">ermita</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>52584
+</pre></div>
+</div>
+</div>
+</div>
+<p>A partir de lo anterior tenemos que la base de datos de la estación de <strong>Ermita</strong> cuenta con 52.584 registros de los cuales la variable PM10 tiene 39.174 no nulos.</p>
+<p>Se creará un dataset con solo nuestras variables de interés que son la fecha y la medición del PM10.</p>
+<section id="serie-de-tiempo-de-pm10-en-la-estacion-ermita">
+<h3><strong>Serie de tiempo de PM10 en la estación ermita</strong><a class="headerlink" href="#serie-de-tiempo-de-pm10-en-la-estacion-ermita" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serie_pm10</span><span class="o">=</span> <span class="n">ermita</span><span class="p">[[</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="s1">&#39;pm10&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serie_pm10</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">serie_pm10</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01 00:59:59+00:00</td>
+      <td>61.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-01-01 01:59:59+00:00</td>
+      <td>101.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-01-01 02:59:59+00:00</td>
+      <td>75.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-01-01 03:59:59+00:00</td>
+      <td>56.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-01-01 04:59:59+00:00</td>
+      <td>107.1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>52579</th>
+      <td>2022-12-31 19:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>52580</th>
+      <td>2022-12-31 20:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>52581</th>
+      <td>2022-12-31 21:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>52582</th>
+      <td>2022-12-31 22:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>52583</th>
+      <td>2022-12-31 23:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>52584 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Veamos la distribucion de la variable:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">serie_pm10</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">],</span><span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribución de la variable PM10&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6692dbc89435a03a4d4d44884f66d918349dccce7b8e06aaaf7c09e9a77e629e.png" src="_images/6692dbc89435a03a4d4d44884f66d918349dccce7b8e06aaaf7c09e9a77e629e.png" />
+</div>
+</div>
+<p>Vemos que la distribución de la variable es asimétrica a la derecha, aun así presenta la forma de una distribución normal.</p>
+<p>Intentemos graficar la serie de tiempo para la estación ermita.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">serie_pm10</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pm10&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de tiempo PM10 2017-2022&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Al ver la gráfica de la serie de tiempo no se diferencia mucho lo que es la tendencia o el patrón de la serie de tiempo, pero lo que si podemos distinguir claramente son esos registros nulos, podemos ver que la mayor cantidad de datos faltantes se encuentran en el año 2021, con esta imagen podemos ir pensando en como se hará la imputación de estos datos faltantes.</p>
+<p>Veamos la proporción de datos faltantes en la serie de tiempo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Los valores faltantes del Pm10 en la estación ermita son en total: &quot;</span><span class="p">,</span><span class="n">ermita_na</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Proporción de los valores faltantes: &quot;</span><span class="p">,</span> <span class="n">ermita_na</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">ermita</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Los valores faltantes del Pm10 en la estación ermita son en total:  13410
+Proporción de los valores faltantes:  0.25502053856686446
+</pre></div>
+</div>
+</div>
+</div>
+<p>Como muestra la gráfica de la serie y como comentamos anteriormente, la mayoria de los datos faltantes estan a partir de 2021, por esta razón se hará el análisis e imputación de los datos faltantes dividiendo el dataset. La metodología que se usará es la siguiente: Se evaluara e implementará un modelo con los datos desde 2017 hasta 2019 y se imputarán los datos faltantes con un modelo ARIMA, cuando se cumpla la imputación y se verifique que fue correcta, se tomaran todos estos datos como entrenamiento para poder hacer la imputación de los datos faltantes que estan a partir de 2020 hasta 2022. Veamos la implementación.</p>
+</section>
+<section id="serie-de-tiempo-2017-2019">
+<h3><strong>Serie de tiempo 2017-2019</strong><a class="headerlink" href="#serie-de-tiempo-2017-2019" title="Link to this heading">#</a></h3>
+<p>A continuación se crea la serie de tiempo del pm10 en el periodo de 2017 a 2019.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ermita17_19</span><span class="o">=</span><span class="n">serie_pm10</span><span class="p">[</span><span class="n">serie_pm10</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">&lt;=</span><span class="mi">2019</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ermita17_19</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01 00:59:59+00:00</td>
+      <td>61.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-01-01 01:59:59+00:00</td>
+      <td>101.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-01-01 02:59:59+00:00</td>
+      <td>75.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-01-01 03:59:59+00:00</td>
+      <td>56.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-01-01 04:59:59+00:00</td>
+      <td>107.1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26275</th>
+      <td>2019-12-31 19:59:59+00:00</td>
+      <td>38.3</td>
+    </tr>
+    <tr>
+      <th>26276</th>
+      <td>2019-12-31 20:59:59+00:00</td>
+      <td>37.3</td>
+    </tr>
+    <tr>
+      <th>26277</th>
+      <td>2019-12-31 21:59:59+00:00</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>26278</th>
+      <td>2019-12-31 22:59:59+00:00</td>
+      <td>28.9</td>
+    </tr>
+    <tr>
+      <th>26279</th>
+      <td>2019-12-31 23:59:59+00:00</td>
+      <td>35.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>26280 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Veamos como es el comportamiento de la serie con los siguientes análisis.</p>
+<section id="comportamiento-de-la-serie">
+<h4><strong>Comportamiento de la serie</strong><a class="headerlink" href="#comportamiento-de-la-serie" title="Link to this heading">#</a></h4>
+<p>Inicialmente omitimos los valores NaN.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serie_pm10_wna</span><span class="o">=</span> <span class="n">ermita17_19</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">serie_pm10_wna</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01 00:59:59+00:00</td>
+      <td>61.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-01-01 01:59:59+00:00</td>
+      <td>101.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-01-01 02:59:59+00:00</td>
+      <td>75.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-01-01 03:59:59+00:00</td>
+      <td>56.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-01-01 04:59:59+00:00</td>
+      <td>107.1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>24023</th>
+      <td>2019-12-31 19:59:59+00:00</td>
+      <td>38.3</td>
+    </tr>
+    <tr>
+      <th>24024</th>
+      <td>2019-12-31 20:59:59+00:00</td>
+      <td>37.3</td>
+    </tr>
+    <tr>
+      <th>24025</th>
+      <td>2019-12-31 21:59:59+00:00</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>24026</th>
+      <td>2019-12-31 22:59:59+00:00</td>
+      <td>28.9</td>
+    </tr>
+    <tr>
+      <th>24027</th>
+      <td>2019-12-31 23:59:59+00:00</td>
+      <td>35.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>24028 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Como bien es sabido es importante en el estudio de las series de tiempo verificar como es su gráfico de autocorrelación, el cual muestra la correlación que tiene un registros con sus registros en el pasado, veamos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)})</span>
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d9193650b4a2580196c8579f76345eda2705c7e7918f621f5819e6b4b939fcfd.png" src="_images/d9193650b4a2580196c8579f76345eda2705c7e7918f621f5819e6b4b939fcfd.png" />
+</div>
+</div>
+<p>Si analisamos el gráfico de autocorrelación vemos que existe un patrón entre las correlaciones de los valores anteriores de la serie, esto es un indicio para pensar en que estamos trabajando con una serie estacionaria o incluso cíclica, vemos que los dos primeros valores de autocorrelación son cernas a 1, es decir que hay una dependencia secuencial en los datos.</p>
+<p>Es importante notar que a medida que aumentan los lags la correlacion va disminuyendo.</p>
+<p>Así mismo como se estudia la autocorrelación, tambien es importante estudiar el gráfico de autocorrelación parcial, el cual muestra la correlación que tiene un registros con lo observado antes en el pasado eliminando la influencia de los registros intermedios.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)})</span>
+<span class="n">plot_pacf</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e8ad68d709054edfac82c5d594144dea79c560c6c6363d5e0562badf3864cc9d.png" src="_images/e8ad68d709054edfac82c5d594144dea79c560c6c6363d5e0562badf3864cc9d.png" />
+</div>
+</div>
+<p>Por parte del gráfico de autocorrelación parcial vemos un cambio abrupto entre las primeras correlaciones, indicando así que cada observación esta fuertemente influenciada por la observación inmediata anterior a diferencia de las observaciones mas distantes en el pasado.</p>
+<p>Se realizará la prueba de <strong>Duckey-Fuller</strong> aumentada para probar de forma analítica que la serie es estacionaria.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ADF Statistic: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p-value: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADF Statistic: -15.342534
+p-value: 0.000000
+</pre></div>
+</div>
+</div>
+</div>
+<p>Si recordamos la hipotesis nula de la prueba de Duckey-Fuller, esta se plantea como $<span class="math notranslate nohighlight">\(H_0= \textit{La serie no es estacionaria}\)</span>$ Con un p-valore = 0 se rechaza la hipotesis nula para cualquier nivel de significacia, por tanto se prueba que la serie es estacionaria.</p>
+<p>Puesto que se confirma que la serie de tiempo es estacionaria, se implementarán uno de los modelos clásicos de las series de tiempo para hacer la imputación de los datos faltantes en este caso se hará uso de un modelo ARIMA o mejor dicho un modelo ARMA puesto que la serie ya es estacionaria, a continuación se presentan la hiperparametrización del modelo y mas adelante la predicción de los datos faltantes.</p>
+</section>
+<section id="modelo-arma-para-la-imputacion-de-datos-faltantes">
+<h4><strong>Modelo ARMA para la imputación de datos faltantes.</strong><a class="headerlink" href="#modelo-arma-para-la-imputacion-de-datos-faltantes" title="Link to this heading">#</a></h4>
+<p>Se hará una busqueda de los mejores parametros para nuestro modelo arma:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aicVal</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">ari</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">maj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">arma_obj</span> <span class="o">=</span> <span class="n">smtsa</span><span class="o">.</span><span class="n">ARIMA</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="n">ari</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">maj</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+        <span class="n">aicVal</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ari</span><span class="p">,</span> <span class="n">maj</span><span class="p">,</span> <span class="n">arma_obj</span><span class="o">.</span><span class="n">aic</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAIC</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">aicVal</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AR(p)&#39;</span><span class="p">,</span> <span class="s1">&#39;MA(q)&#39;</span><span class="p">,</span> <span class="s1">&#39;AIC&#39;</span><span class="p">])</span>
+<span class="n">dfAIC</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AR(p)</th>
+      <th>MA(q)</th>
+      <th>AIC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>199288.621318</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2</td>
+      <td>199275.645535</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>199258.876717</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>2</td>
+      <td>199259.913104</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Luego de hacer lo que se podría llamar un GridSearch para los parametros del modelo ARMA, se creó un data set donde se registran los scores de cada uno de los modelos con las diferentes combinaciones de parametros. Este proceso arrojó los siguientes resultados.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAIC</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;AIC&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AR(p)</th>
+      <th>MA(q)</th>
+      <th>AIC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>199258.876717</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Vemos que al hacer la busqueda de los mejores parametros el proceso arroja como mejores parametros <span class="math notranslate nohighlight">\(p=2\)</span> y <span class="math notranslate nohighlight">\(q=1\)</span> es decir que el modelo que mejor se ajusta a los datos de la base de Ermita es ARMA(2,1).</p>
+<p><strong>Implementación de la imputación:</strong></p>
+<p>Primeramente necesitamos el df que se querrá imputar, es decir la serie con los valores falatantes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_imp</span><span class="o">=</span><span class="n">ermita17_19</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">to_imp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01 00:59:59+00:00</td>
+      <td>61.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-01-01 01:59:59+00:00</td>
+      <td>101.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-01-01 02:59:59+00:00</td>
+      <td>75.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-01-01 03:59:59+00:00</td>
+      <td>56.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-01-01 04:59:59+00:00</td>
+      <td>107.1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26275</th>
+      <td>2019-12-31 19:59:59+00:00</td>
+      <td>38.3</td>
+    </tr>
+    <tr>
+      <th>26276</th>
+      <td>2019-12-31 20:59:59+00:00</td>
+      <td>37.3</td>
+    </tr>
+    <tr>
+      <th>26277</th>
+      <td>2019-12-31 21:59:59+00:00</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>26278</th>
+      <td>2019-12-31 22:59:59+00:00</td>
+      <td>28.9</td>
+    </tr>
+    <tr>
+      <th>26279</th>
+      <td>2019-12-31 23:59:59+00:00</td>
+      <td>35.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>26280 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Cantidad de valores a imputar.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_imp</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2252
+</pre></div>
+</div>
+</div>
+</div>
+<p>Vemos que se busca imputar 2.252 observaciones.</p>
+<p>Por otro lado se necesita la serie sin los NaN para poder entrenar el modelo ARMA y posteriormente usar las predicciones del modelo para imputar los datos faltantes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">entrenamiento</span><span class="o">=</span><span class="n">serie_pm10_wna</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">entrenamiento</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01 00:59:59+00:00</td>
+      <td>61.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-01-01 01:59:59+00:00</td>
+      <td>101.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-01-01 02:59:59+00:00</td>
+      <td>75.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-01-01 03:59:59+00:00</td>
+      <td>56.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-01-01 04:59:59+00:00</td>
+      <td>107.1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>24023</th>
+      <td>2019-12-31 19:59:59+00:00</td>
+      <td>38.3</td>
+    </tr>
+    <tr>
+      <th>24024</th>
+      <td>2019-12-31 20:59:59+00:00</td>
+      <td>37.3</td>
+    </tr>
+    <tr>
+      <th>24025</th>
+      <td>2019-12-31 21:59:59+00:00</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>24026</th>
+      <td>2019-12-31 22:59:59+00:00</td>
+      <td>28.9</td>
+    </tr>
+    <tr>
+      <th>24027</th>
+      <td>2019-12-31 23:59:59+00:00</td>
+      <td>35.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>24028 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Vemos que se usarán 24.028 observaciones para entrenar el modelo que nos ayudará a predecir los datos faltantes.</p>
+<p>Se necesita de igual forma los indices donde se encuentran los valore faltantes con el fin de rellenarlos con las predicciones del modelo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_indices</span> <span class="o">=</span> <span class="n">to_imp</span><span class="p">[</span><span class="n">to_imp</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">missing_indices</span><span class="p">))</span>
+<span class="n">missing_indices</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2252
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([  168,   169,   170,   730,   731,  1021,  1046,  1047,  1048,  1049,
+       ...
+       24224, 24742, 24947, 24948, 24949, 25427, 25428, 25429, 25760, 25761],
+      dtype=&#39;int64&#39;, length=2252)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ajuste-del-modelo">
+<h4><strong>Ajuste del modelo</strong><a class="headerlink" href="#ajuste-del-modelo" title="Link to this heading">#</a></h4>
+<p>En el paso siguiente se hará el entrenamiento del modelo con los parametros escogidos anteriormente, luego se haran las predicciónes y se extraerán los valores en los indices donde se encuentran los valores faltantes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arma_obj_finp</span> <span class="o">=</span> <span class="n">smtsa</span><span class="o">.</span><span class="n">ARIMA</span><span class="p">(</span><span class="n">entrenamiento</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">predicciones</span> <span class="o">=</span> <span class="n">arma_obj_finp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">to_imp</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">missing_indices</span><span class="p">:</span>
+    <span class="n">to_imp</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;pm10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predicciones</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Rectifiquemos que se haya hecho la imputación de forma correcta.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_imp</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Recordemos como se veía la serie con los valores faltantes a continuación.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">ermita17_19</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pm10&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de tiempo PM10 2017-2019&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Y ahora veamos como se ve la serie con los valores imputados.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">to_imp</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pm10&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de tiempo PM10 2017-2019 imputada&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Con el gráfico anterior vemos que la imputación se hizo de forma correcta aparentemente, revisemos los supuestos del modelo para confirmar de manera analítica como se comportó el modelo.</p>
+</section>
+<section id="revision-de-supuestos">
+<h4><strong>Revisión de supuestos</strong><a class="headerlink" href="#revision-de-supuestos" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arma_obj_finp</span><span class="o">.</span><span class="n">plot_diagnostics</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e6c2230f322040383786d81547043af8beab66627f23ad810199eae2d16cf299.png" src="_images/e6c2230f322040383786d81547043af8beab66627f23ad810199eae2d16cf299.png" />
+</div>
+</div>
+<p>Los residuos, que representan las diferencias entre los valores observados y los predichos por el modelo, no presentan patrones claros de autocorrelación y su varianza parece ser constante a lo largo del tiempo. Estos hallazgos sugieren que los residuos son esencialmente ruido aleatorio, ademas si notamos el histrograma  y el QQ plot, parece ser que los residuos se distribuyen normales y no guardan una correlación entre ellos.</p>
+<p>Ahora veamos que pasa en la serie de tiempo a partir del 2020. La idea es usar los datos que anteriormente imputamos para poder imputar los siguientes, puesto que en esta parte del dataframe se encuentra la mayor parte de los datos faltantes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Este conjunto de datos será ahora nuestro conjunto de entrenamiento para el modelo.</span>
+<span class="n">entrenamiento_2</span><span class="o">=</span><span class="n">to_imp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">entrenamiento_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01 00:59:59+00:00</td>
+      <td>61.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-01-01 01:59:59+00:00</td>
+      <td>101.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-01-01 02:59:59+00:00</td>
+      <td>75.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-01-01 03:59:59+00:00</td>
+      <td>56.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-01-01 04:59:59+00:00</td>
+      <td>107.1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26275</th>
+      <td>2019-12-31 19:59:59+00:00</td>
+      <td>38.3</td>
+    </tr>
+    <tr>
+      <th>26276</th>
+      <td>2019-12-31 20:59:59+00:00</td>
+      <td>37.3</td>
+    </tr>
+    <tr>
+      <th>26277</th>
+      <td>2019-12-31 21:59:59+00:00</td>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>26278</th>
+      <td>2019-12-31 22:59:59+00:00</td>
+      <td>28.9</td>
+    </tr>
+    <tr>
+      <th>26279</th>
+      <td>2019-12-31 23:59:59+00:00</td>
+      <td>35.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>26280 rows × 2 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="serie-de-tiempo-2020-2022">
+<h3><strong>Serie de tiempo 2020-2022</strong><a class="headerlink" href="#serie-de-tiempo-2020-2022" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ermita20_22</span><span class="o">=</span><span class="n">serie_pm10</span><span class="p">[</span><span class="n">serie_pm10</span><span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span> <span class="o">&gt;=</span><span class="mi">2020</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ermita20_22</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020-01-01 00:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020-01-01 01:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020-01-01 02:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2020-01-01 03:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2020-01-01 04:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26299</th>
+      <td>2022-12-31 19:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26300</th>
+      <td>2022-12-31 20:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26301</th>
+      <td>2022-12-31 21:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26302</th>
+      <td>2022-12-31 22:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26303</th>
+      <td>2022-12-31 23:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>26304 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Recordemos al inicio del estudio de la serie de tiempo que mencionamos que a partir del 2020 esta la mayor cantidad de datos faltantes.</p>
+<section id="id1">
+<h4><strong>Comportamiento de la serie</strong><a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>Iniciamos omitiendo los NaN para el estudio de los aspectos importantes de la serie.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serie_pm10_wna</span><span class="o">=</span> <span class="n">ermita20_22</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">serie_pm10_wna</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020-01-01 10:59:59+00:00</td>
+      <td>13.8</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020-01-01 11:59:59+00:00</td>
+      <td>9.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020-01-01 12:59:59+00:00</td>
+      <td>11.5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2020-01-01 13:59:59+00:00</td>
+      <td>15.1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2020-01-01 14:59:59+00:00</td>
+      <td>19.6</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>15141</th>
+      <td>2022-11-01 05:59:59+00:00</td>
+      <td>57.7</td>
+    </tr>
+    <tr>
+      <th>15142</th>
+      <td>2022-11-01 06:59:59+00:00</td>
+      <td>77.5</td>
+    </tr>
+    <tr>
+      <th>15143</th>
+      <td>2022-11-01 07:59:59+00:00</td>
+      <td>77.2</td>
+    </tr>
+    <tr>
+      <th>15144</th>
+      <td>2022-11-01 08:59:59+00:00</td>
+      <td>89.4</td>
+    </tr>
+    <tr>
+      <th>15145</th>
+      <td>2022-11-01 23:59:59+00:00</td>
+      <td>27.7</td>
+    </tr>
+  </tbody>
+</table>
+<p>15146 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Vemos que el total de los valores en la serie desde 2020 que no son faltantes 15.146 es decir que mas de la mitad de los datos son faltantes.</p>
+<p>Pasemos a revisar el gráfico de autocorrelación.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">)})</span>
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2b40d1fb1ad0e62f46fa0a3cbb87c275914e6f5a1433b4a442e24264e10e708c.png" src="_images/2b40d1fb1ad0e62f46fa0a3cbb87c275914e6f5a1433b4a442e24264e10e708c.png" />
+</div>
+</div>
+<p>Vemos que el gráfico de autocorrelacion de esta parte de la serie es muy similar, muestra de igual forma un patron de correlaciones, lo que nos lleva a pensar a que de igual forma esta serie es estacionaria, es importante tambien notar que a medida que nos dezplazamos en el pasado las correlaciones van disminuyendo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">)})</span>
+<span class="n">plot_pacf</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">],</span><span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8ddc3f9f716a3dbf02a3d22e69667d26f4e693fd014ff8be30ca320b689f6b21.png" src="_images/8ddc3f9f716a3dbf02a3d22e69667d26f4e693fd014ff8be30ca320b689f6b21.png" />
+</div>
+</div>
+<p>Y como era de esperarse en la gráfica de la autocorrelacion parcial se ve el mismo patrón que obtuvimos en la primera parte de la serie, vemos que de igual manera las dos primeras correlaciones indican que esta serie esta muy correlacionada con sus dos observaciones inmediatas del pasado.</p>
+<p>De igual forma para confirmar, se realiza a continuación la prueba se <strong>Duckey-Fuller</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">adfuller</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ADF Statistic: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p-value: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ADF Statistic: -12.381327
+p-value: 0.000000
+</pre></div>
+</div>
+</div>
+</div>
+<p>Mostrando así lo anterior, que la serie de tiempo desde 2020 hasta 2022 es estacionaria tambien ya que se obtuvo un p-valor=0 rechazando la hipotesis nula bajo todos los niveles de significancia.</p>
+<p>Según lo anterior tambien es correcto implentar un modelo ARMA, ya que la serie es estacionaria y este modelo es el indicado para llevar a cabo la imputación.</p>
+</section>
+<section id="id2">
+<h4><strong>Modelo ARMA para la imputación de datos faltantes</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<p>Hiperparametrización de los parametros p y q para el modelo. Recordemos que utilizaremos los valores que imputamos en al seccion anterior del dataset, es por eso que debemos hacer una concatenación entre los valores desde 2017 hasta 2019 y con los valores no nulos de esta sección.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serie_pm10_wna</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">entrenamiento_2</span><span class="p">,</span> <span class="n">serie_pm10_wna</span><span class="p">])</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>41426
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aicVal</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">ari</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">maj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">arma_obj</span> <span class="o">=</span> <span class="n">smtsa</span><span class="o">.</span><span class="n">ARIMA</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="n">ari</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">maj</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+        <span class="n">aicVal</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ari</span><span class="p">,</span> <span class="n">maj</span><span class="p">,</span> <span class="n">arma_obj</span><span class="o">.</span><span class="n">aic</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\fonta\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\tsa\statespace\sarimax.py:966: UserWarning:
+
+Non-stationary starting autoregressive parameters found. Using zeros as starting parameters.
+
+c:\Users\fonta\miniconda3\envs\ml_venv\lib\site-packages\statsmodels\tsa\statespace\sarimax.py:978: UserWarning:
+
+Non-invertible starting MA parameters found. Using zeros as starting parameters.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAIC</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">aicVal</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AR(p)&#39;</span><span class="p">,</span> <span class="s1">&#39;MA(q)&#39;</span><span class="p">,</span> <span class="s1">&#39;AIC&#39;</span><span class="p">])</span>
+<span class="n">dfAIC</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AR(p)</th>
+      <th>MA(q)</th>
+      <th>AIC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>342142.877387</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>2</td>
+      <td>342124.701464</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3</td>
+      <td>342100.221717</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>1</td>
+      <td>342111.514901</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2</td>
+      <td>2</td>
+      <td>342111.050623</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2</td>
+      <td>3</td>
+      <td>342100.977151</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>3</td>
+      <td>1</td>
+      <td>342111.242819</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>3</td>
+      <td>2</td>
+      <td>342112.585103</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>3</td>
+      <td>3</td>
+      <td>342102.073159</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfAIC</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;AIC&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AR(p)</th>
+      <th>MA(q)</th>
+      <th>AIC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>3</td>
+      <td>342100.221717</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Este proceso nos arroja que los mejores parametros para ajustar nuestro modelo ARMA es <span class="math notranslate nohighlight">\(p=1\)</span> y <span class="math notranslate nohighlight">\(q=3\)</span>.</p>
+<p><strong>Implementación de la imputación:</strong></p>
+<p>Se tiene el dataset con los valores faltantes que se quieren imputar.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_impk</span><span class="o">=</span><span class="n">ermita20_22</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">to_impk</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020-01-01 00:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020-01-01 01:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020-01-01 02:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2020-01-01 03:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2020-01-01 04:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26299</th>
+      <td>2022-12-31 19:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26300</th>
+      <td>2022-12-31 20:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26301</th>
+      <td>2022-12-31 21:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26302</th>
+      <td>2022-12-31 22:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26303</th>
+      <td>2022-12-31 23:59:59+00:00</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>26304 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Total de valores que se busca imputar:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_impk</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>11158
+</pre></div>
+</div>
+</div>
+</div>
+<p>Vemos que el total de valores que se quiere imputar son 11.158 datos.</p>
+<p>Recordemos cual será nuestro conjunto de entrenamiento.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serie_pm10_wna</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>fecha</th>
+      <th>pm10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01 00:59:59+00:00</td>
+      <td>61.9</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-01-01 01:59:59+00:00</td>
+      <td>101.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-01-01 02:59:59+00:00</td>
+      <td>75.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-01-01 03:59:59+00:00</td>
+      <td>56.3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-01-01 04:59:59+00:00</td>
+      <td>107.1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>15141</th>
+      <td>2022-11-01 05:59:59+00:00</td>
+      <td>57.7</td>
+    </tr>
+    <tr>
+      <th>15142</th>
+      <td>2022-11-01 06:59:59+00:00</td>
+      <td>77.5</td>
+    </tr>
+    <tr>
+      <th>15143</th>
+      <td>2022-11-01 07:59:59+00:00</td>
+      <td>77.2</td>
+    </tr>
+    <tr>
+      <th>15144</th>
+      <td>2022-11-01 08:59:59+00:00</td>
+      <td>89.4</td>
+    </tr>
+    <tr>
+      <th>15145</th>
+      <td>2022-11-01 23:59:59+00:00</td>
+      <td>27.7</td>
+    </tr>
+  </tbody>
+</table>
+<p>41426 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>El siguiente paso es gurdar donde se encuentran los valores faltantes, con el fin de poder hacer la imputación de manera correcta.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_indices</span> <span class="o">=</span> <span class="n">to_impk</span><span class="p">[</span><span class="n">to_impk</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">missing_indices</span><span class="p">))</span>
+<span class="n">missing_indices</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>11158
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([    0,     1,     2,     3,     4,     5,     6,     7,     8,     9,
+       ...
+       26294, 26295, 26296, 26297, 26298, 26299, 26300, 26301, 26302, 26303],
+      dtype=&#39;int64&#39;, length=11158)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ajustando-el-modelo">
+<h4><strong>Ajustando el modelo.</strong><a class="headerlink" href="#ajustando-el-modelo" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arma_obj_finp</span> <span class="o">=</span> <span class="n">smtsa</span><span class="o">.</span><span class="n">ARIMA</span><span class="p">(</span><span class="n">serie_pm10_wna</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">predicciones</span> <span class="o">=</span> <span class="n">arma_obj_finp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">to_impk</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">missing_indices</span><span class="p">:</span>
+    <span class="n">to_impk</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;pm10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">predicciones</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Revisamos que la imputación se haya hecho de la forma correcta.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">to_impk</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">ermita20_22</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pm10&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de tiempo PM10 2020-2022&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Veamos la gráfica de la serie de tiempo desde el 2020 hasta 2022 con la presencia de valores faltantes.</p>
+<p>Y ahora vemos la gráfica con los valores imputados.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">to_impk</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pm10&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de tiempo PM10 2020-2022&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Vemos que aparentemente el modelo logró imputar de manera correcta los valores faltantes de esta segunda sección de la serie de tiempo, revisemos los supuestos del modelo para corroborar esta afirmación.</p>
+</section>
+<section id="id3">
+<h4><strong>Revisión de supuestos</strong><a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arma_obj_finp</span><span class="o">.</span><span class="n">plot_diagnostics</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7a6ba389866aebc82efb097c97904da0e4a0899fc0b77b67f8aad98c320fd940.png" src="_images/7a6ba389866aebc82efb097c97904da0e4a0899fc0b77b67f8aad98c320fd940.png" />
+</div>
+</div>
+<p>Si verificamos los supuestos del modelo podemos ver que los residuos se distribuyen normales y que no tiene una correlación entre ellos lo cual es importante, puesto que indica que los errores que existen son aleatorios. Por tanto la imputación realizada por el modelo ARIMA (1,0,3).</p>
+</section>
+</section>
+<section id="serie-final">
+<h3><strong>Serie final</strong><a class="headerlink" href="#serie-final" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">serie_pm10_imputada</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">to_imp</span><span class="p">,</span><span class="n">to_impk</span><span class="p">])</span>
+<span class="n">serie_pm10_imputada</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;seriepm10.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">serie_pm10_imputada</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pm10&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Serie de tiempo PM10 2017-2022&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Vemos de forma gráfica como fue el resultado de la imputación, veamos si luego de esta se mantuvo la ditribución de la variable:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Histograma 1</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">serie_pm10</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribución original&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># Histograma 2</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">serie_pm10_imputada</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribución luego de la imputación&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2b5ed44fcbeba10b69b8edebb634f0617e3af566d273c6c2e2214488da5fae47.png" src="_images/2b5ed44fcbeba10b69b8edebb634f0617e3af566d273c6c2e2214488da5fae47.png" />
+</div>
+</div>
+<p>Vemos que la imputación no alteró la distribución de la variable que es lo que se esperaba.</p>
+<p>Analisemos los gráficos de autocorrelación y autocorrelación parcial de la serie final.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># Una fila, dos columnas</span>
+
+<span class="c1"># Gráfico ACF</span>
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">serie_pm10_imputada</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> 
+         <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Autocorrelation (ACF)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gráfico PACF</span>
+<span class="n">plot_pacf</span><span class="p">(</span><span class="n">serie_pm10_imputada</span><span class="p">[</span><span class="s2">&quot;pm10&quot;</span><span class="p">],</span> <span class="n">lags</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">,</span> 
+          <span class="n">vlines_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;#386641&#39;</span><span class="p">},</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Partial Autocorrelation (PACF)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Ajustar el diseño</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c9be978794d711cffaa7244d42eafc19c13041bf9f8d7e3456c26c397e194d8e.png" src="_images/c9be978794d711cffaa7244d42eafc19c13041bf9f8d7e3456c26c397e194d8e.png" />
+</div>
+</div>
+<p>Con esto podemos darnos un indicio de que la serie de tiempo del PM10 con los datos imputados, tambien es estacionaria., lo cual es lo epserado, puesto que la serie original tambien lo era, es decir, no se alteró el patrón de la serie de tiempo.</p>
+<p>Con esta serie final que ya no contiene valores faltantes podemos análisar como es la descomposición de la serie del PM10 en al estación ermita.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultado</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">serie_pm10_imputada</span><span class="p">[</span><span class="s1">&#39;pm10&#39;</span><span class="p">],</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;additive&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">resultado</span><span class="o">.</span><span class="n">observed</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Observed&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">resultado</span><span class="o">.</span><span class="n">trend</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Trend&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">resultado</span><span class="o">.</span><span class="n">seasonal</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax3</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Seasonal&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+<span class="n">resultado</span><span class="o">.</span><span class="n">resid</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax4</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Residual&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#386641&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/442cc8882a0ca5f491f7e8b7323b5ef443d80265403bdecacc8659a2ee3fa1b0.png" src="_images/442cc8882a0ca5f491f7e8b7323b5ef443d80265403bdecacc8659a2ee3fa1b0.png" />
+</div>
+</div>
+<p>La descomposición de la serie de tiempo de PM10 muestra que la serie observada tiene variabilidad y algunos picos, pero la tendencia no presenta cambios significativos a largo plazo, indicando estabilidad. La componente estacional no revela patrones claros. Finalmente, los residuos muestran alta variabilidad, lo que indica ruido o fluctuaciones que el modelo no explica.</p>
+<p>Con este análisis exploratorio de datos podemos pasar a implementar los diferentes modelos, con el fin de decidir cual es el que mejor funciona para nuestro conjunto de datos. Pasemos a la modelación.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Contextualización</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="modelosPM10.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Implementacion de modelos de regresion</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contextualizacion"><strong>Contextualización</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estaciones-de-monitoreo"><em><strong>Estaciones de monitoreo.</strong></em></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis"><strong>Análisis</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivotado-del-conjunto-de-datos"><strong>Pivotado del conjunto de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtro-por-estacion"><strong>Filtro por estación</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ermita"><strong>Ermita</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-de-tiempo-de-pm10-en-la-estacion-ermita"><strong>Serie de tiempo de PM10 en la estación ermita</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-de-tiempo-2017-2019"><strong>Serie de tiempo 2017-2019</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#comportamiento-de-la-serie"><strong>Comportamiento de la serie</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-arma-para-la-imputacion-de-datos-faltantes"><strong>Modelo ARMA para la imputación de datos faltantes.</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ajuste-del-modelo"><strong>Ajuste del modelo</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-supuestos"><strong>Revisión de supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-de-tiempo-2020-2022"><strong>Serie de tiempo 2020-2022</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>Comportamiento de la serie</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>Modelo ARMA para la imputación de datos faltantes</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ajustando-el-modelo"><strong>Ajustando el modelo.</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Revisión de supuestos</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serie-final"><strong>Serie final</strong></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Gwyneth Blanco & Nicoll Fontalvo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
